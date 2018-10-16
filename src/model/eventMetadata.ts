@@ -1,4 +1,4 @@
-export class BotRequest {
+export class EventMetadata {
   constructor(
     public day?: string,
     public time?: string,
