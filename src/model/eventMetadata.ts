@@ -4,5 +4,6 @@ export class EventMetadata {
     public time?: string,
     public format?: string,
     public location?: string,
+    public requester?: string,
   ) {}
 }

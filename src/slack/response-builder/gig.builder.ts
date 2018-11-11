@@ -1,8 +1,10 @@
 import {EventMetadata} from '../../model/eventMetadata';
 
 export const buildGigResponseFromMetaData = (metaData: EventMetadata): string => {
-  return '/polly "[Anfrage ' + metaData.day + ', ' + metaData.format + ', ' + metaData.location + ', ' + metaData.time + ']\n' +
-    'Wir haben eine Anfrage bekommen von XY für '
+  return 'TODO: Auftritte heraussuchen, Anreise recherchieren + einfügen, One-Vote-Max Option abschalten in der Umfrage' +
+    '\n\n' +
+    '/polly "[Anfrage ' + metaData.day + ', ' + metaData.format + ', ' + metaData.location + ', ' + metaData.time + ']\n' +
+    'Wir haben eine Anfrage bekommen von ' + metaData.requester + ' für das Format: '
     + metaData.format + ' in ' + metaData.location + ' am ' + metaData.day + ' um ' + metaData.time + '.' +
     '\n\n' +
     'Auftritte in den 2 Wochen zuvor:\n' +

@@ -21,6 +21,7 @@ function getBodyAsSlackRequest(body: string): SlackSlashCommandBody {
   const result = {};
   pairs.forEach(function(pair) {
     const kv = pair.split('=');
+    kv[1] = kv[1].replace('+', ' ');
     result[kv[0]] = decodeURIComponent(kv[1] || '');
   });
 

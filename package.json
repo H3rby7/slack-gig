@@ -6,7 +6,8 @@
     "start": "ts-node --project tsconfig.json src/main.ts",
     "build": "tsc",
     "build-aws": "tsc src/handler --outDir target",
-    "aws-watch": "tsc src/handler --outDir target --watch"
+    "aws-watch": "tsc src/handler --outDir target --watch",
+    "deploy": "npm run build-aws && serverless deploy"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

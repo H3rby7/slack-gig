@@ -91,7 +91,10 @@ I added a custom policy with (replace USER-ID with yours)
         "lambda:ListVersionsByFunction",
         "lambda:AddPermission",
         "lambda:RemovePermission",
-        "lambda:PublishVersion"
+        "lambda:PublishVersion",
+        "lambda:UpdateFunctionCode",
+        "lambda:ListTags",
+        "lambda:UpdateFunctionConfiguration"
       ],
       "Resource": [
         "arn:aws:lambda:eu-central-1:USER-ID:function:slack-orbo*"
