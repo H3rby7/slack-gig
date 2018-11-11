@@ -1,5 +1,5 @@
 import * as express from "express";
-import {processSlackSlashCommand} from "./auftritt";
+import {processSlackSlashCommand} from "./slack";
 import {NextFunction, Request, Response} from 'express-serve-static-core';
 import {SlackSlashCommandBody} from './model/slack-slash-command-body';
 

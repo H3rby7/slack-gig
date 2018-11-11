@@ -4,6 +4,7 @@ import {EventRequestTypes} from './request.types.enum';
 import {SlackSlashCommandBody} from '../model/slack-slash-command-body';
 import {parseCastRequest} from './parser/cast.parser';
 import {BadSlackRequestException} from './exceptions/slack.exception';
+import {buildCastResponseFromMetaData} from './builder/cast-request.builder';
 
 export const processSlackSlashCommand = (req: SlackSlashCommandBody): string => {
   if (!req || !req.text) {
@@ -28,7 +29,7 @@ export const processSlackSlashCommand = (req: SlackSlashCommandBody): string => 
 function processRequest(type: EventRequestTypes, text: string): string {
   if (type === EventRequestTypes.BESETZUNG) {
     const metaData = parseCastRequest(text.slice(type.length + 1));
-    return buildGigResponseFromMetaData(metaData);
+    return buildCastResponseFromMetaData(metaData);
   }
   console.log("No Command matched. textDump: " + JSON.stringify(text));
   return;
