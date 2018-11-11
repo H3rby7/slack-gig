@@ -5,7 +5,13 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 provider:
   name: aws
   runtime: nodejs6.10
-  region: eu-west-2
+  region: eu-central-1
+
+package:
+  exclude:
+  - node_modules/**/*
+  include:
+    handler.ts
 
 functions:
   slack:
@@ -14,10 +20,6 @@ functions:
     - http:
         path: ''
         method: post
-        response:
-          headers:
-            Content-Type: "'text/html'"
-        integration: lambda-proxy
 
 plugins:
 - serverless-offline
