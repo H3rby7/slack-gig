@@ -1,4 +1,4 @@
 export enum EventRequestTypes {
-  BESETZUNG = "besetzung",
-  ANFRAGE = "anfrage"
+  BESETZUNG = 'besetzung',
+  ANFRAGE = 'anfrage'
 }

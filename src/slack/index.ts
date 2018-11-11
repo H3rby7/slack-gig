@@ -1,4 +1,4 @@
-import {getCommandTypeFromText} from "./parser/command.type.parser";
+import {getCommandTypeFromText} from './parser/command.type.parser';
 import {buildGigResponseFromMetaData} from './builder/gig-request.builder';
 import {EventRequestTypes} from './request.types.enum';
 import {SlackSlashCommandBody} from '../model/slack-slash-command-body';
@@ -31,7 +31,7 @@ function processRequest(type: EventRequestTypes, text: string): string {
     const metaData = parseCastRequest(text.slice(type.length + 1));
     return buildCastResponseFromMetaData(metaData);
   }
-  console.log("No Command matched. textDump: " + JSON.stringify(text));
+  console.log('No Command matched. textDump: ' + JSON.stringify(text));
   return;
 }
 

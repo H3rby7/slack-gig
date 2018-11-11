@@ -1,9 +1,8 @@
-import createError from "http-errors";
-import * as express from "express";
-import * as morgan from "morgan";
-import {processSlackSlashCommand} from "./src/slack";
-import cookieParser = require("cookie-parser");
-import {router} from "./src/router";
+import createError from 'http-errors';
+import * as express from 'express';
+import * as morgan from 'morgan';
+import cookieParser = require('cookie-parser');
+import {router} from './router';
 
 export const app = express();
 

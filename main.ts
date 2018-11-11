@@ -1,6 +1,6 @@
-import {app} from '../app'
-import {createServer} from "http";
-import debug0 from "debug";
+import {app} from './src/app';
+import {createServer} from 'http';
+import debug0 from 'debug';
 const debug = debug0('slasher:server');
 /**
  * Get port from environment and store in Express.
@@ -28,16 +28,16 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-  const port = parseInt(val, 10);
+  const _port = parseInt(val, 10);
 
-  if (isNaN(port)) {
+  if (isNaN(_port)) {
     // named pipe
     return val;
   }
 
-  if (port >= 0) {
+  if (_port >= 0) {
     // port number
-    return port;
+    return _port;
   }
 
   return false;
