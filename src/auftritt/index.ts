@@ -1,29 +1,41 @@
 import {getCommandTypeFromText} from "./parser/command.type.parser";
 import {buildGigResponseFromMetaData} from './builder/gig-request.builder';
 import {EventRequestTypes} from './request.types.enum';
-import {BotRequest} from '../model/botRequest';
 import {SlackSlashCommandBody} from '../model/slack-slash-command-body';
 import {parseCastRequest} from './parser/cast.parser';
+import {BadSlackRequestException} from './exceptions/slack.exception';
 
 export const processSlackSlashCommand = (req: SlackSlashCommandBody): string => {
   if (!req || !req.text) {
     console.log('no body');
     return getSampleText();
   }
-  const command = getCommandTypeFromText(req.text);
-  const result = processRequest(command, req.text);
-  if (!result) {
-    return getSampleText();
+  let result: string;
+  try {
+    const command = getCommandTypeFromText(req.text);
+    result = processRequest(command, req.text);
+  } catch (e) {
+    if (e instanceof BadSlackRequestException) {
+      return createBadSlackRequestResponse(e);
+    }
   }
-  return buildGigResponseFromMetaData(result.metaData);
+  if (!result) {
+    return 'An unknown error occurred processing your request. Please make sure it looks somewhat like:\n\n' + getSampleText();
+  }
+  return result;
 };
 
-function processRequest(type: EventRequestTypes, text: string): BotRequest {
+function processRequest(type: EventRequestTypes, text: string): string {
   if (type === EventRequestTypes.BESETZUNG) {
-    return new BotRequest(EventRequestTypes.BESETZUNG, parseCastRequest(text.slice(type.length + 1)));
+    const metaData = parseCastRequest(text.slice(type.length + 1));
+    return buildGigResponseFromMetaData(metaData);
   }
   console.log("No Command matched. textDump: " + JSON.stringify(text));
   return;
+}
+
+function createBadSlackRequestResponse(err: BadSlackRequestException): string {
+  return `${err.message}\n\n Demo Usage:\n${err.demoUse}`;
 }
 
 function getSampleText() {
