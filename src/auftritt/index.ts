@@ -1,30 +1,30 @@
-import {parseText} from "./parser";
+import {getCommandTypeFromText} from "./parser/command.type.parser";
+import {buildGigResponseFromMetaData} from './builder/gig-request.builder';
+import {EventRequestTypes} from './request.types.enum';
+import {BotRequest} from '../model/botRequest';
+import {SlackSlashCommandBody} from '../model/slack-slash-command-body';
+import {parseCastRequest} from './parser/cast.parser';
 
-export const AuftrittsHandler = (req, res, next) => {
-  if (!req || !req.body || !req.body.text) {
+export const processSlackSlashCommand = (req: SlackSlashCommandBody): string => {
+  if (!req || !req.text) {
     console.log('no body');
-    res.send(getSampleText());
-    return next;
+    return getSampleText();
   }
-  const result = parseText(req.body.text);
+  const command = getCommandTypeFromText(req.text);
+  const result = processRequest(command, req.text);
   if (!result) {
-    res.send(getSampleText());
-    return next;
+    return getSampleText();
   }
-  res.send('/polly "[Anfrage ' + result.day + ', ' + result.format + ', ' + result.location + ', ' + result.time + ']\n' +
-    'Wir haben eine Anfrage bekommen von XY für ' + result.format + ' in ' + result.location + ' am ' + result.day + ' um ' + result.time + '.\n' +
-    '\n' +
-    'Auftritte in den 2 Wochen zuvor:\n' +
-    'Auftritte in den 2 Wochen danach:\n' +
-    '\n' +
-    'Anreise dauert XY, losfahren müsste man in Stuttgart um XY."' +
-    '\n' +
-    '"Kann (Spielen)"' +
-    '"Kann (Musik)"' +
-    '"Kann (Fahren)"' +
-    '"Kann nicht"' +
-    '"Noch unklar (Kommentar)"');
+  return buildGigResponseFromMetaData(result.metaData);
 };
+
+function processRequest(type: EventRequestTypes, text: string): BotRequest {
+  if (type === EventRequestTypes.BESETZUNG) {
+    return new BotRequest(EventRequestTypes.BESETZUNG, parseCastRequest(text.slice(type.length + 1)));
+  }
+  console.log("No Command matched. textDump: " + JSON.stringify(text));
+  return;
+}
 
 function getSampleText() {
   return 'Bitte so nutzen: /orbo Anfrage für FORMAT am DD.MM.YYYY um HH:mm Uhr im/bei/in LOCATION';

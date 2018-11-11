@@ -1,7 +1,7 @@
 import createError from "http-errors";
 import * as express from "express";
 import * as morgan from "morgan";
-import {AuftrittsHandler} from "./src/auftritt";
+import {processSlackSlashCommand} from "./src/auftritt";
 import cookieParser = require("cookie-parser");
 import {router} from "./src/router";
 
