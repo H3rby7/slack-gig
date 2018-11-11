@@ -29,6 +29,7 @@ export const processSlackSlashCommand = (req: SlackSlashCommandBody): string => 
 };
 
 function processRequest(type: EventRequestTypes, text: string): string {
+  console.log('Processing: ' + JSON.stringify(text));
   if (type === EventRequestTypes.BESETZUNG) {
     const metaData = parseCastRequest(text.slice(type.length + 1));
     return buildCastResponseFromMetaData(metaData);
@@ -37,12 +38,12 @@ function processRequest(type: EventRequestTypes, text: string): string {
     const metaData = parseGigRequest(text.slice(type.length + 1));
     return buildGigResponseFromMetaData(metaData);
   }
-  console.log('No Command matched. textDump: ' + JSON.stringify(text));
+  console.log('No Command matched');
   return;
 }
 
 function createBadSlackRequestResponse(err: BadSlackRequestException): string {
-  return `${err.message}\n\n Demo Usage:\n${err.demoUse}`;
+  return `${err.message}\n\n Demo Usage:\n/orbo ${err.demoUse}`;
 }
 
 function getErrorText() {
