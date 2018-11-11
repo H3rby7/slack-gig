@@ -1,4 +1,4 @@
-import {app} from './src/app';
+import {app} from './app';
 import {createServer} from 'http';
 import debug0 from 'debug';
 const debug = debug0('slasher:server');

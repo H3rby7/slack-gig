@@ -1,5 +1,4 @@
 import {getCommandTypeFromText} from './parser/command.type.parser';
-import {buildGigResponseFromMetaData} from './builder/gig-request.builder';
 import {EventRequestTypes} from './request.types.enum';
 import {SlackSlashCommandBody} from '../model/slack-slash-command-body';
 import {parseCastRequest} from './parser/cast.parser';
