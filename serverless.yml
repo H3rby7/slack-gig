@@ -8,13 +8,16 @@ provider:
   region: eu-west-2
 
 functions:
-  create:
-    handler: src/handler.slack
+  slack:
+    handler: target/handler.slack
     events:
     - http:
         path: ''
         method: post
-        cors: true
+        response:
+          headers:
+            Content-Type: "'text/html'"
+        integration: lambda-proxy
 
 plugins:
 - serverless-offline
